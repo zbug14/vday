@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 50px;
+}
+
+.card {
+  background: #1e1e1e;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 600px;
+  margin: auto;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #ff4d6d;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ff3355;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Happy Valentine’s Day</h1>
+  <h2>[His Name Here]</h2>
+
+  <p>
+  I made this just for you.
+  </p>
+
+  <button onclick="showMessage()">Click Me</button>
+
+  <p id="secret" style="display:none; margin-top:20px;">
+  You are my favorite person. Always. ❤️
+  </p>
+</div>
+
+<script>
+function showMessage() {
+  document.getElementById("secret").style.display = "block";
+}
+</script>
+
+</body>
+</html>
