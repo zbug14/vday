@@ -1,63 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <title>For You ❤️</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 50px;
-}
-
-.card {
-  background: #1e1e1e;
-  padding: 30px;
-  border-radius: 15px;
-  max-width: 600px;
-  margin: auto;
-}
-
-button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #ff4d6d;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #ff3355;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <div id="sparkleLayer"></div>
+  <audio id="bgm" autoplay loop muted>
+  <source src="Kirby's Return to Dream Land Title Theme 8 Bit Remix.mp3" type="audio/mpeg">
+</audio>
 
-<div class="card">
-  <h1>Happy Valentine’s Day</h1>
-  <h2>Alex</h2>
 
-  <p>
-  I made this just for you.
-  </p>
 
-  <button onclick="showMessage()">Click Me</button>
 
-  <p id="secret" style="display:none; margin-top:20px;">
-  You are my favorite person. Always. ❤️
-  </p>
+<h1 id="line1"></h1>
+<p id="line2"></p>
+<p id="line3"></p>
+
+
+<button id="mailbtn" class="imgButton"></button>
+<button id="musicbtn" class="imgButton"></button>
+
+<div id="messageUI" style="display:none;">
+  <img id="messageImg" src="message.png" alt="">
+  <div id="overlayText" class="manual-text">
+  Will you be my Valentine?
+  </div>
+  <button id="yesbtn" class="manual-btn"></button>
+  <button id="nobtn" class="manual-btn"></button>
 </div>
 
+<div id="finalEnd" style="display:none">
+  <img id="alexandtruman" src="trumanandalex.png">
+  <img class="upperleftGif" src="https://media.tenor.com/g485TTq4thoAAAAi/cat-cat-dance.gif">
+  <img class="upperrightGif" src="https://media.tenor.com/EA22nY9lDbcAAAAi/penguin-penguin-dancing.gif">
+  <img class="lowerleftGif" src="https://media.tenor.com/YGO9_VTxa7UAAAAi/transparent-transparent-bunny.gif">
+  <img class="lowerrightGif" src="https://media.tenor.com/KbfWwfBNKDQAAAAi/spongebob-steamhappy.gif">
+</div>
+
+
 <script>
-function showMessage() {
-  document.getElementById("secret").style.display = "block";
+
+  let clickIndex = 0;
+  let setupcomplete = false;
+  let allowText = false;
+  let allowButtons = false;
+  const clickLines = [
+  "its quiet in here...too quiet...",
+  "click this button to play some music :)",
+  "thats better, right?",
+  "well...i guess we should get to the point of the website now...",
+  "oh look you got mail!"];
+  const hoverSound = new Audio("hover.ogg");
+  const clickSound = new Audio("click.ogg");
+  const oofSound = new Audio("oof.mp3");
+  const yipeeSound = new Audio("MARIO YIPPIE.mp3");
+
+function typeLine(el, text, speed, done) {
+  let i = 0;
+  el.textContent = "";
+  el.classList.add("typing");
+  const t = setInterval(() => {
+    el.textContent += text[i];
+    i++;
+    if (i >= text.length) {
+      clearInterval(t);
+      el.classList.remove("typing"); // removes cursor
+      if (done) done();
+    }
+  }, speed);
 }
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  const line1 = document.getElementById("line1");
+  const line2 = document.getElementById("line2");
+  const line3 = document.getElementById("line3");
+  const mailbtn = document.getElementById("mailbtn");
+  const musicbtn = document.getElementById("musicbtn");
+  mailbtn.style.display = "none";
+  musicbtn.style.display = "none";
+
+  typeLine(line1, "Herro, Alex!!!", 90, () => {
+    setTimeout(() => {
+      typeLine(line2, "Happy Valentine's Day ❤️", 90, () => {
+        setTimeout(() => {
+          typeLine(line3, "(click to keep going)", 90, () => {
+            setupcomplete = true;
+          });
+        }, 2500);
+      });
+    }, 1500);
+  });
+});
+
+
+
+window.addEventListener("click", () => {
+  if (setupcomplete) {
+    setupcomplete = false;
+    allowText = true;   
+    startClickMode();
+    clickNextLine();
+    return;
+  }
+  if (allowText) {
+    if (!allowButtons) {
+      clickNextLine();
+    }
+  }
+});
+
+function startClickMode() {
+  document.getElementById("line1").textContent = "";
+  document.getElementById("line2").textContent = "";
+  document.getElementById("line3").textContent = "";
+}
+
+function clickNextLine() {
+  if (clickIndex >= clickLines.length) return;
+  allowText = false;
+
+  const line1 = document.getElementById("line1");
+  line1.textContent = ""; // clear previous line
+  typeLine(line1, clickLines[clickIndex], 90);
+  allowText = true;
+
+  if (clickIndex === 1) {
+    allowButtons = true;
+    showMusicButton();
+  }
+  if (clickIndex === 4) {
+    showMailButton();
+  }
+  clickIndex++;
+}
+function showMusicButton() {
+  const musicbtn = document.getElementById("musicbtn");
+  musicbtn.style.display = "inline-block";
+  musicbtn.classList.add("buttonEnter");
+  musicbtn.onclick = () => {
+    const bgm = document.getElementById("bgm");
+
+    bgm.muted = false;
+    bgm.loop = true;
+    bgm.play();
+
+    allowButtons = false;
+    musicbtn.style.display = "none";
+  };
+}
+
+function showMailButton() {
+  const mailbtn = document.getElementById("mailbtn");
+  mailbtn.style.display = "inline-block";
+  mailbtn.classList.add("buttonEnter");
+  mailbtn.onclick = () => {
+    const line1 = document.getElementById("line1");
+    line1.textContent = ""; // clear previous line
+    mailbtn.style.display = "none";
+    loadMessage();
+  };
+}
+
+function loadMessage() {
+  const messageUI = document.getElementById("messageUI");
+  messageUI.style.display = "block";
+}
+
+
+// Get buttons
+const yesBtn = document.getElementById("yesbtn");
+const noBtn = document.getElementById("nobtn");
+const musicBtn = document.getElementById("musicbtn");
+const mailBtn = document.getElementById("mailbtn");
+
+// HOVER SOUND
+[yesBtn, noBtn, musicBtn, mailBtn].forEach(btn => {
+  btn.addEventListener("mouseenter", () => {
+    hoverSound.currentTime = 0;
+    hoverSound.play();
+  });
+});
+
+// CLICK SOUND
+[musicBtn, mailBtn].forEach(btn => {
+  btn.addEventListener("click", () => {
+    clickSound.currentTime = 0;
+    clickSound.play();
+  });
+});
+
+noBtn.addEventListener("click", () => {
+  oofSound.currentTime = 0;
+  oofSound.play();
+});
+
+yesBtn.addEventListener("click", () => {
+  yipeeSound.currentTime = 0;
+  yipeeSound.play();
+  yipeeSound.play();
+  yipeeSound.play();
+  yipeeSound.play();
+  loadEnd();
+});
+
+function loadEnd() {
+  const messageUI = document.getElementById("messageUI");
+  messageUI.style.display = "none";
+  document.getElementById("finalEnd").style.display = "block";
+}
+
 </script>
+
 
 </body>
 </html>

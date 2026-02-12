@@ -1,0 +1,250 @@
+@font-face {
+    font-family: "Pixel";
+    src: url("PixelOperator.ttf") format("truetype");
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Pixel", sans-serif;
+  background: url("background.png");
+  color: #111;
+  text-align: center;
+}
+
+
+
+
+
+h1 {
+  font-size: 60px;
+  text-align: center;
+  margin-bottom: -40px;
+  transform: translateY(-40px);
+}
+
+
+p {
+  font-size: 36px;
+  text-align: center;
+  margin-top: 1px;
+  margin-bottom: 20px;
+}
+
+#line2 {
+  margin-top: -10px;
+}
+
+
+.typing::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+#musicbtn {
+    width: 300px;   
+    height: 240px;   
+    margin-top: 60px;
+
+    background-image: url("soundbtn.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+#mailbtn {
+  width: 200px;   
+  height: 150px;   
+
+  margin-top: 60px;
+
+  background-image: url("envelope.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#yesbtn {
+  width: 200px;   
+  height: 150px;   
+
+  margin: 20px;
+
+  background-image: url("yes.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#nobtn {
+  width: 200px;   
+  height: 150px;   
+
+  margin: 20px;
+
+  background-image: url("no.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@keyframes buttonPopIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.buttonEnter {
+  animation: buttonPopIn 0.4s ease-out;
+}
+
+#messageUI {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+#overlayText {
+  font-size: 60px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#messageImg {
+  display: block;
+}
+
+#overlayText {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#yesbtn {
+  position: absolute;
+  bottom: 550px;
+  left: 225px;
+}
+
+#nobtn {
+  position: absolute;
+  bottom: 550px;
+  right: 225px;
+}
+
+#yesbtn:hover, #nobtn:hover, #musicbtn:hover, #mailbtn:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 8px white);
+}
+
+#finalEnd {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+#trumanandalex {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.upperLeftGif {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+}
+
+.upperRightGif {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+}
+
+.lowerLeftGif {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+}
+
+.lowerRightGif {
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+}
+
+#sparkleLayer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999; /* absurdly high to prove it's on top */
+
+  background-image:
+  radial-gradient(3px 3px at 10% 20%, rgb(238, 164, 216), transparent 60%),
+  radial-gradient(2px 2px at 30% 70%, rgba(255,255,255,1), transparent 60%),
+  radial-gradient(3px 3px at 55% 35%, rgba(255,255,255,1), transparent 60%),
+  radial-gradient(2px 2px at 70% 80%, rgb(243, 152, 152), transparent 60%),
+  radial-gradient(3px 3px at 90% 40%, rgba(255,255,255,1), transparent 60%);
+
+
+  background-repeat: repeat;
+  background-size: 150px 150px;
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(255,255,255,1)) brightness(1.4);
+
+
+  animation: sparkleDrift 6s linear infinite, sparkleTwinkle 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes sparkleDrift{
+  from { transform: translateY(0); }
+  to   { transform: translateY(-200px); }
+}
+
+@keyframes sparkleTwinkle{
+  from { opacity: 0.85; }
+  to   { opacity: 1; }
+}
+
+
+#messageUI, #finalEnd {
+  z-index: 10;
+}
